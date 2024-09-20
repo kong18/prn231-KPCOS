@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34511.84
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KPCOS.Data", "KPCOS.DATA\KPCOS.Data.csproj", "{3821DF95-B174-4AE6-997A-881DE746CEB1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KPCOS.Data", "KPCOS.DATA\KPCOS.Data.csproj", "{3821DF95-B174-4AE6-997A-881DE746CEB1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KPCOS.Service", "KPCOS.Service\KPCOS.Service.csproj", "{2D107EC6-7996-4652-BB58-726CCB86FE4D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KPCOS.Service", "KPCOS.Service\KPCOS.Service.csproj", "{2D107EC6-7996-4652-BB58-726CCB86FE4D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KPCOS.Common", "KPCOS.Common\KPCOS.Common.csproj", "{5909B47B-2DB2-44B3-93F3-E24CE8275B1E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KPCOS.Common", "KPCOS.Common\KPCOS.Common.csproj", "{5909B47B-2DB2-44B3-93F3-E24CE8275B1E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KPOS.APIService", "KPOS.APIService\KPOS.APIService.csproj", "{FD8978AC-4F02-440F-AED0-A5377DC0BC10}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{5909B47B-2DB2-44B3-93F3-E24CE8275B1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5909B47B-2DB2-44B3-93F3-E24CE8275B1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5909B47B-2DB2-44B3-93F3-E24CE8275B1E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD8978AC-4F02-440F-AED0-A5377DC0BC10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD8978AC-4F02-440F-AED0-A5377DC0BC10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD8978AC-4F02-440F-AED0-A5377DC0BC10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD8978AC-4F02-440F-AED0-A5377DC0BC10}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
