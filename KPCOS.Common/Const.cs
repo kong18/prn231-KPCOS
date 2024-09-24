@@ -8,6 +8,8 @@ namespace KPCOS.Common
 {
     public class Const
     {
+        public const string APIEndPoint = "https://localhost:7046/api/";
+
         #region Error Codes
 
         public static int ERROR_EXCEPTION = -4;

@@ -9,11 +9,11 @@ public partial class Consultation
 {
     public string Id { get; set; }
 
-    public string DesignId { get; set; }
-
     public string AdjustedDesign { get; set; }
 
     public string AdjustedSpecification { get; set; }
+
+    public string DesignId { get; set; }
 
     public string Note { get; set; }
 

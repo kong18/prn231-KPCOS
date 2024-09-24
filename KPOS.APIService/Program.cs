@@ -12,7 +12,8 @@ namespace KPOS.APIService
             // Add services to the container.
 
             builder.Services.AddControllers();
-            builder.Services.AddTransient<IProjectService, ProjectService>();   
+            builder.Services.AddTransient<IProjectService, ProjectService>();  
+            builder.Services.AddTransient<IDesignService, DesignService>();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();

@@ -9,23 +9,23 @@ public partial class User
 {
     public string Id { get; set; }
 
-    public string Username { get; set; }
+    public string Address { get; set; }
 
-    public string Password { get; set; }
+    public DateTime? CreateDate { get; set; }
 
     public string Fullname { get; set; }
 
-    public string Phone { get; set; }
+    public string Password { get; set; }
 
-    public string Address { get; set; }
+    public string Phone { get; set; }
 
     public string Role { get; set; }
 
-    public bool Status { get; set; }
-
-    public DateTime CreateDate { get; set; }
+    public bool? Status { get; set; }
 
     public DateTime? UpdateDate { get; set; }
+
+    public string Username { get; set; }
 
     public virtual ICollection<Customer> Customers { get; set; } = new List<Customer>();
 

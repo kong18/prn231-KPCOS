@@ -9,23 +9,23 @@ public partial class Quotation
 {
     public string Id { get; set; }
 
-    public string Scale { get; set; }
-
     public string ComplexityLevel { get; set; }
 
-    public string Style { get; set; }
+    public decimal? ConsultationAmount { get; set; }
+
+    public string DesignId { get; set; }
+
+    public string Note { get; set; }
 
     public decimal? QuotationAmount { get; set; }
 
     public DateTime? QuotationDate { get; set; }
 
+    public string Scale { get; set; }
+
     public string Status { get; set; }
 
-    public string Note { get; set; }
-
-    public string DesignId { get; set; }
-
-    public decimal? ConsultationAmout { get; set; }
+    public string Style { get; set; }
 
     public virtual Design Design { get; set; }
 }

@@ -10,8 +10,11 @@ namespace KPCOS.Data.Repository
 {
     public class ProjectRepository : GenericRepository<Project>
     {
+        public ProjectRepository() { }
         public ProjectRepository(FA24_SE1717_PRN231_G4_KPCOSContext context) {
             _context = context;
-        }  
+        } 
+
+        
     }
 }

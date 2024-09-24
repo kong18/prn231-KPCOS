@@ -9,21 +9,21 @@ public partial class Project
 {
     public string Id { get; set; }
 
-    public string Status { get; set; }
+    public decimal? ActualCost { get; set; }
+
+    public string ConstructionStaffId { get; set; }
 
     public string CustomerId { get; set; }
 
-    public decimal EstimatedCost { get; set; }
-
-    public decimal? ActualCost { get; set; }
-
-    public DateTime StartDate { get; set; }
-
-    public DateTime EndDate { get; set; }
-
     public string DesignerId { get; set; }
 
-    public string ConstructionStaffId { get; set; }
+    public DateTime? EndDate { get; set; }
+
+    public decimal? EstimatedCost { get; set; }
+
+    public DateTime? StartDate { get; set; }
+
+    public string Status { get; set; }
 
     public virtual Employee ConstructionStaff { get; set; }
 
