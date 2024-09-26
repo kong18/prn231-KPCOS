@@ -9,19 +9,19 @@ public partial class Feedback
 {
     public string Id { get; set; }
 
-    public string ProjectId { get; set; }
-
-    public decimal Rating { get; set; }
-
     public string Content { get; set; }
 
     public DateTime? CreateDate { get; set; }
 
-    public DateTime? UpdateDate { get; set; }
+    public string CustomerId { get; set; }
 
     public bool? IsDeleted { get; set; }
 
-    public string CustomerId { get; set; }
+    public string ProjectId { get; set; }
+
+    public decimal? Rating { get; set; }
+
+    public DateTime? UpdateDate { get; set; }
 
     public virtual Customer Customer { get; set; }
 

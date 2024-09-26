@@ -9,19 +9,19 @@ public partial class Invoice
 {
     public string Id { get; set; }
 
-    public decimal TotalAmout { get; set; }
+    public decimal? DiscountApplied { get; set; }
 
-    public string Status { get; set; }
+    public DateTime? PaymentDate { get; set; }
 
     public string PaymentMethod { get; set; }
 
-    public DateTime PaymentDate { get; set; }
-
-    public decimal TaxAmout { get; set; }
-
-    public decimal DiscountApllied { get; set; }
-
     public string ProjectId { get; set; }
+
+    public string Status { get; set; }
+
+    public decimal? TaxAmount { get; set; }
+
+    public decimal? TotalAmount { get; set; }
 
     public virtual Project Project { get; set; }
 }

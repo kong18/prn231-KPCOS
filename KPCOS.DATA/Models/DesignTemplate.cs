@@ -9,19 +9,19 @@ public partial class DesignTemplate
 {
     public string Id { get; set; }
 
-    public string Name { get; set; }
-
-    public string Description { get; set; }
+    public string DefaultLocation { get; set; }
 
     public string DefaultShape { get; set; }
 
-    public string DefaultLocation { get; set; }
-
     public string DefaultSize { get; set; }
+
+    public string Description { get; set; }
 
     public string Image { get; set; }
 
-    public decimal TotalPrice { get; set; }
+    public string Name { get; set; }
+
+    public decimal? TotalPrice { get; set; }
 
     public virtual ICollection<Design> Designs { get; set; } = new List<Design>();
 }

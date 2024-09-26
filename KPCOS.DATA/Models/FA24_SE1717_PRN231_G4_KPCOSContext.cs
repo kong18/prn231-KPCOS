@@ -46,9 +46,6 @@ public partial class FA24_SE1717_PRN231_G4_KPCOSContext : DbContext
 
     public virtual DbSet<User> Users { get; set; }
 
-    //    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-    //        => optionsBuilder.UseSqlServer("Data Source=DESKTOP-IGAN944;Initial Catalog=FA24_SE1717_PRN231_G4_KPCOS;User ID=sa;Password=12345;Encrypt=False");
     public static string GetConnectionString(string connectionStringName)
     {
         var config = new ConfigurationBuilder()
@@ -66,238 +63,222 @@ public partial class FA24_SE1717_PRN231_G4_KPCOSContext : DbContext
     {
         modelBuilder.Entity<Consultation>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Consulta__3213E83F754B757A");
+            entity.HasKey(e => e.Id).HasName("PK__Consulta__3213E83F68827588");
 
             entity.ToTable("Consultation");
 
-            entity.HasIndex(e => e.Id, "UQ__Consulta__3213E83EB5A65238").IsUnique();
-
             entity.Property(e => e.Id)
-                .HasMaxLength(1)
+                .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("id");
-            entity.Property(e => e.AdjustedDesign).HasColumnType("ntext");
-            entity.Property(e => e.AdjustedSpecification).HasColumnType("ntext");
+            entity.Property(e => e.AdjustedDesign)
+                .HasColumnType("text")
+                .HasColumnName("adjusted_design");
+            entity.Property(e => e.AdjustedSpecification)
+                .HasColumnType("text")
+                .HasColumnName("adjusted_specification");
             entity.Property(e => e.DesignId)
-                .IsRequired()
-                .HasMaxLength(1)
+                .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("design_id");
-            entity.Property(e => e.Note).HasColumnType("ntext");
+            entity.Property(e => e.Note)
+                .HasColumnType("text")
+                .HasColumnName("note");
 
             entity.HasOne(d => d.Design).WithMany(p => p.Consultations)
                 .HasForeignKey(d => d.DesignId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Consultation_Design");
+                .HasConstraintName("FK__Consultat__desig__6477ECF3");
         });
 
         modelBuilder.Entity<Customer>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Customer__3213E83F4E567AF3");
+            entity.HasKey(e => e.Id).HasName("PK__Customer__3213E83FB15428AB");
 
             entity.ToTable("Customer");
 
-            entity.HasIndex(e => e.Id, "UQ__Customer__3213E83E765A7482").IsUnique();
-
             entity.Property(e => e.Id)
-                .HasMaxLength(1)
+                .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("id");
             entity.Property(e => e.LoyaltyPoint).HasColumnName("loyalty_point");
             entity.Property(e => e.MembershipStatus)
-                .IsRequired()
-                .HasMaxLength(1)
-                .IsUnicode(false)
+                .HasMaxLength(50)
                 .HasColumnName("membership_status");
             entity.Property(e => e.PackageId)
-                .HasMaxLength(1)
+                .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("package_id");
             entity.Property(e => e.UserId)
-                .IsRequired()
-                .HasMaxLength(1)
+                .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("user_id");
 
             entity.HasOne(d => d.Package).WithMany(p => p.Customers)
                 .HasForeignKey(d => d.PackageId)
-                .HasConstraintName("FK_Customer_Package");
+                .HasConstraintName("FK__Customer__packag__59063A47");
 
             entity.HasOne(d => d.User).WithMany(p => p.Customers)
                 .HasForeignKey(d => d.UserId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Customer_User");
+                .HasConstraintName("FK__Customer__user_i__59FA5E80");
         });
 
         modelBuilder.Entity<Design>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Design__3213E83FCF49CFE1");
+            entity.HasKey(e => e.Id).HasName("PK__Design__3213E83F140225D2");
 
             entity.ToTable("Design");
 
-            entity.HasIndex(e => e.Id, "UQ__Design__3213E83E6E1191AB").IsUnique();
-
             entity.Property(e => e.Id)
-                .HasMaxLength(1)
+                .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("id");
-            entity.Property(e => e.Budget).HasColumnType("decimal(18, 0)");
+            entity.Property(e => e.Budget)
+                .HasColumnType("decimal(18, 0)")
+                .HasColumnName("budget");
             entity.Property(e => e.ConsultantBy)
-                .HasMaxLength(1)
+                .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("consultant_by");
             entity.Property(e => e.CreateDate)
                 .HasColumnType("datetime")
                 .HasColumnName("create_date");
             entity.Property(e => e.CustomerId)
-                .IsRequired()
-                .HasMaxLength(1)
+                .HasMaxLength(50)
                 .IsUnicode(false)
-                .HasColumnName("CustomerID");
+                .HasColumnName("customer_id");
             entity.Property(e => e.Depth)
                 .HasDefaultValue(0.6m)
-                .HasColumnType("decimal(18, 0)");
+                .HasColumnType("decimal(18, 0)")
+                .HasColumnName("depth");
             entity.Property(e => e.DesignType)
-                .IsRequired()
-                .HasMaxLength(1);
-            entity.Property(e => e.FiltrationSystem).HasMaxLength(1);
+                .HasMaxLength(50)
+                .HasColumnName("design_type");
+            entity.Property(e => e.FiltrationSystem)
+                .HasMaxLength(50)
+                .HasColumnName("filtration_system");
             entity.Property(e => e.KoiCountRange)
-                .IsRequired()
-                .HasMaxLength(1);
+                .HasMaxLength(50)
+                .HasColumnName("koi_count_range");
             entity.Property(e => e.KoiType)
-                .IsRequired()
-                .HasMaxLength(1);
+                .HasMaxLength(50)
+                .HasColumnName("koi_type");
             entity.Property(e => e.Location)
-                .IsRequired()
-                .HasMaxLength(1)
-                .HasDefaultValue("Outdoor");
+                .HasMaxLength(50)
+                .HasDefaultValue("Outdoor")
+                .HasColumnName("location");
             entity.Property(e => e.MinLength)
                 .HasDefaultValue(2m)
-                .HasColumnType("decimal(18, 0)");
+                .HasColumnType("decimal(18, 0)")
+                .HasColumnName("min_length");
             entity.Property(e => e.MinWidth)
                 .HasDefaultValue(0.8m)
-                .HasColumnType("decimal(18, 0)");
+                .HasColumnType("decimal(18, 0)")
+                .HasColumnName("min_width");
             entity.Property(e => e.Note)
-                .HasColumnType("ntext")
+                .HasColumnType("text")
                 .HasColumnName("note");
             entity.Property(e => e.Shape)
-                .IsRequired()
-                .HasMaxLength(1)
-                .HasDefaultValue("Rectangular");
+                .HasMaxLength(50)
+                .HasDefaultValue("Rectangular")
+                .HasColumnName("shape");
             entity.Property(e => e.Status)
-                .IsRequired()
-                .HasMaxLength(1)
-                .IsUnicode(false)
-                .HasDefaultValue("Not yet responded");
+                .HasMaxLength(50)
+                .HasDefaultValue("Not yet responded")
+                .HasColumnName("status");
             entity.Property(e => e.TemplateId)
-                .HasMaxLength(1)
+                .HasMaxLength(50)
                 .IsUnicode(false)
-                .HasColumnName("TemplateID");
+                .HasColumnName("template_id");
             entity.Property(e => e.UpdateDate)
                 .HasColumnType("datetime")
                 .HasColumnName("update_date");
             entity.Property(e => e.WaterLevel)
                 .HasDefaultValue(0.4m)
-                .HasColumnType("decimal(18, 0)");
-            entity.Property(e => e.WaterQuality).HasMaxLength(1);
+                .HasColumnType("decimal(18, 0)")
+                .HasColumnName("water_level");
+            entity.Property(e => e.WaterQuality)
+                .HasMaxLength(50)
+                .HasColumnName("water_quality");
 
             entity.HasOne(d => d.Customer).WithMany(p => p.Designs)
                 .HasForeignKey(d => d.CustomerId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Design_Customer");
+                .HasConstraintName("FK__Design__customer__619B8048");
 
             entity.HasOne(d => d.Template).WithMany(p => p.Designs)
                 .HasForeignKey(d => d.TemplateId)
-                .HasConstraintName("FK_Design_Template");
+                .HasConstraintName("FK__Design__template__628FA481");
         });
 
         modelBuilder.Entity<DesignConcept>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__DesignCo__3213E83F211F1761");
+            entity.HasKey(e => e.Id).HasName("PK__DesignCo__3213E83F75DBB039");
 
             entity.ToTable("DesignConcept");
 
-            entity.HasIndex(e => e.Id, "UQ__DesignCo__3213E83E4D475763").IsUnique();
-
             entity.Property(e => e.Id)
-                .HasMaxLength(1)
+                .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("id");
             entity.Property(e => e.Description)
-                .IsRequired()
-                .HasMaxLength(1)
+                .HasMaxLength(255)
                 .HasColumnName("description");
             entity.Property(e => e.Image)
-                .IsRequired()
-                .HasMaxLength(1)
-                .IsUnicode(false)
+                .HasMaxLength(255)
                 .HasColumnName("image");
             entity.Property(e => e.Name)
-                .IsRequired()
-                .HasMaxLength(1)
+                .HasMaxLength(100)
                 .HasColumnName("name");
             entity.Property(e => e.ProjectId)
-                .IsRequired()
-                .HasMaxLength(1)
+                .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("project_id");
 
             entity.HasOne(d => d.Project).WithMany(p => p.DesignConcepts)
                 .HasForeignKey(d => d.ProjectId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_DesignConcept_Project");
+                .HasConstraintName("FK__DesignCon__proje__6383C8BA");
         });
 
         modelBuilder.Entity<DesignTemplate>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__DesignTe__3213E83F1FF79D86");
+            entity.HasKey(e => e.Id).HasName("PK__DesignTe__3213E83F1887EC18");
 
             entity.ToTable("DesignTemplate");
 
-            entity.HasIndex(e => e.Id, "UQ__DesignTe__3213E83EF8A678FA").IsUnique();
-
             entity.Property(e => e.Id)
-                .HasMaxLength(1)
+                .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("id");
             entity.Property(e => e.DefaultLocation)
-                .IsRequired()
-                .HasMaxLength(1)
+                .HasMaxLength(100)
                 .HasColumnName("default_location");
             entity.Property(e => e.DefaultShape)
-                .IsRequired()
-                .HasMaxLength(1)
+                .HasMaxLength(50)
                 .HasColumnName("default_shape");
             entity.Property(e => e.DefaultSize)
-                .IsRequired()
-                .HasMaxLength(1)
+                .HasMaxLength(50)
                 .HasColumnName("default_size");
             entity.Property(e => e.Description)
-                .IsRequired()
-                .HasColumnType("ntext")
+                .HasColumnType("text")
                 .HasColumnName("description");
             entity.Property(e => e.Image)
-                .IsRequired()
-                .HasMaxLength(1)
-                .IsUnicode(false)
+                .HasMaxLength(255)
                 .HasColumnName("image");
             entity.Property(e => e.Name)
-                .IsRequired()
-                .HasMaxLength(1)
+                .HasMaxLength(100)
                 .HasColumnName("name");
-            entity.Property(e => e.TotalPrice).HasColumnType("decimal(18, 0)");
+            entity.Property(e => e.TotalPrice)
+                .HasColumnType("decimal(18, 0)")
+                .HasColumnName("total_price");
         });
 
         modelBuilder.Entity<Employee>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Employee__3213E83F38C716A0");
+            entity.HasKey(e => e.Id).HasName("PK__Employee__3213E83F63D299BA");
 
             entity.ToTable("Employee");
 
-            entity.HasIndex(e => e.Id, "UQ__Employee__3213E83ED37E00F2").IsUnique();
-
             entity.Property(e => e.Id)
-                .HasMaxLength(1)
+                .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("id");
             entity.Property(e => e.Salary)
@@ -305,54 +286,46 @@ public partial class FA24_SE1717_PRN231_G4_KPCOSContext : DbContext
                 .HasColumnType("decimal(18, 0)")
                 .HasColumnName("salary");
             entity.Property(e => e.SupervisorId)
-                .IsRequired()
-                .HasMaxLength(1)
+                .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("supervisor_id");
             entity.Property(e => e.UserId)
-                .IsRequired()
-                .HasMaxLength(1)
+                .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("user_id");
 
             entity.HasOne(d => d.Supervisor).WithMany(p => p.InverseSupervisor)
                 .HasForeignKey(d => d.SupervisorId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Employee_Supervisor");
+                .HasConstraintName("FK__Employee__superv__5AEE82B9");
 
             entity.HasOne(d => d.User).WithMany(p => p.Employees)
                 .HasForeignKey(d => d.UserId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Employee_User");
+                .HasConstraintName("FK__Employee__user_i__5BE2A6F2");
         });
 
         modelBuilder.Entity<Feedback>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Feedback__3213E83F73EAE922");
+            entity.HasKey(e => e.Id).HasName("PK__Feedback__3213E83F51C89352");
 
             entity.ToTable("Feedback");
 
-            entity.HasIndex(e => e.Id, "UQ__Feedback__3213E83EBB3BF847").IsUnique();
-
             entity.Property(e => e.Id)
-                .HasMaxLength(1)
+                .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("id");
             entity.Property(e => e.Content)
-                .IsRequired()
-                .HasColumnType("ntext")
+                .HasColumnType("text")
                 .HasColumnName("content");
             entity.Property(e => e.CreateDate)
                 .HasColumnType("datetime")
                 .HasColumnName("create_date");
             entity.Property(e => e.CustomerId)
-                .HasMaxLength(1)
+                .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("customer_id");
             entity.Property(e => e.IsDeleted).HasColumnName("is_deleted");
             entity.Property(e => e.ProjectId)
-                .IsRequired()
-                .HasMaxLength(1)
+                .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("project_id");
             entity.Property(e => e.Rating)
@@ -364,127 +337,109 @@ public partial class FA24_SE1717_PRN231_G4_KPCOSContext : DbContext
 
             entity.HasOne(d => d.Customer).WithMany(p => p.Feedbacks)
                 .HasForeignKey(d => d.CustomerId)
-                .HasConstraintName("FK_Feedback_Customer");
+                .HasConstraintName("FK__Feedback__custom__656C112C");
 
             entity.HasOne(d => d.Project).WithMany(p => p.Feedbacks)
                 .HasForeignKey(d => d.ProjectId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Feedback_Project");
+                .HasConstraintName("FK__Feedback__projec__66603565");
         });
 
         modelBuilder.Entity<Invoice>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Invoice__3213E83FE14C54A4");
+            entity.HasKey(e => e.Id).HasName("PK__Invoice__3213E83FBAF9B7EF");
 
             entity.ToTable("Invoice");
 
-            entity.HasIndex(e => e.Id, "UQ__Invoice__3213E83E992CD78C").IsUnique();
-
             entity.Property(e => e.Id)
-                .HasMaxLength(1)
+                .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("id");
-            entity.Property(e => e.DiscountApllied)
+            entity.Property(e => e.DiscountApplied)
                 .HasColumnType("decimal(18, 0)")
-                .HasColumnName("discount_apllied");
+                .HasColumnName("discount_applied");
             entity.Property(e => e.PaymentDate)
                 .HasColumnType("datetime")
                 .HasColumnName("payment_date");
             entity.Property(e => e.PaymentMethod)
-                .IsRequired()
-                .HasMaxLength(1)
+                .HasMaxLength(50)
                 .HasColumnName("payment_method");
             entity.Property(e => e.ProjectId)
-                .HasMaxLength(1)
+                .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("project_id");
             entity.Property(e => e.Status)
-                .IsRequired()
-                .HasMaxLength(1)
-                .IsUnicode(false)
+                .HasMaxLength(20)
                 .HasColumnName("status");
-            entity.Property(e => e.TaxAmout)
+            entity.Property(e => e.TaxAmount)
                 .HasColumnType("decimal(18, 0)")
-                .HasColumnName("tax_amout");
-            entity.Property(e => e.TotalAmout)
+                .HasColumnName("tax_amount");
+            entity.Property(e => e.TotalAmount)
                 .HasColumnType("decimal(18, 0)")
-                .HasColumnName("total_amout");
+                .HasColumnName("total_amount");
 
             entity.HasOne(d => d.Project).WithMany(p => p.Invoices)
                 .HasForeignKey(d => d.ProjectId)
-                .HasConstraintName("FK_Invoice_Project");
+                .HasConstraintName("FK__Invoice__project__60A75C0F");
         });
 
         modelBuilder.Entity<Material>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Material__3213E83F6972D347");
+            entity.HasKey(e => e.Id).HasName("PK__Material__3213E83F70B73354");
 
             entity.ToTable("Material");
 
-            entity.HasIndex(e => e.Id, "UQ__Material__3213E83EE2214F4A").IsUnique();
-
             entity.Property(e => e.Id)
-                .HasMaxLength(1)
+                .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("id");
             entity.Property(e => e.Description)
-                .IsRequired()
-                .HasMaxLength(1);
+                .HasMaxLength(255)
+                .HasColumnName("description");
             entity.Property(e => e.Name)
-                .IsRequired()
-                .HasMaxLength(1)
+                .HasMaxLength(100)
                 .HasColumnName("name");
             entity.Property(e => e.ProjectId)
-                .IsRequired()
-                .HasMaxLength(1)
+                .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("project_id");
             entity.Property(e => e.Type)
-                .IsRequired()
-                .HasMaxLength(1)
+                .HasMaxLength(50)
                 .HasColumnName("type");
             entity.Property(e => e.Unit)
-                .IsRequired()
-                .HasMaxLength(1);
+                .HasMaxLength(50)
+                .HasColumnName("unit");
 
             entity.HasOne(d => d.Project).WithMany(p => p.Materials)
                 .HasForeignKey(d => d.ProjectId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Material_Project");
+                .HasConstraintName("FK__Material__projec__5FB337D6");
         });
 
         modelBuilder.Entity<Package>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Package__3213E83F7EBE3BD1");
+            entity.HasKey(e => e.Id).HasName("PK__Package__3213E83FC1AD5376");
 
             entity.ToTable("Package");
 
-            entity.HasIndex(e => e.Id, "UQ__Package__3213E83E1652E9BD").IsUnique();
-
             entity.Property(e => e.Id)
-                .HasMaxLength(1)
+                .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("id");
             entity.Property(e => e.CreateDate)
                 .HasColumnType("datetime")
                 .HasColumnName("create_date");
             entity.Property(e => e.Description)
-                .IsRequired()
-                .HasMaxLength(1)
+                .HasMaxLength(255)
                 .HasColumnName("description");
             entity.Property(e => e.DiscountPercentage).HasColumnName("discount_percentage");
             entity.Property(e => e.Duration)
-                .HasMaxLength(1)
-                .IsUnicode(false)
+                .HasMaxLength(50)
                 .HasColumnName("duration");
             entity.Property(e => e.FeatureInclude)
-                .IsRequired()
-                .HasColumnType("ntext")
+                .HasColumnType("text")
                 .HasColumnName("feature_include");
             entity.Property(e => e.IsActive).HasColumnName("is_active");
             entity.Property(e => e.Name)
-                .IsRequired()
-                .HasMaxLength(1)
+                .HasMaxLength(100)
                 .HasColumnName("name");
             entity.Property(e => e.Price)
                 .HasColumnType("decimal(18, 0)")
@@ -496,35 +451,29 @@ public partial class FA24_SE1717_PRN231_G4_KPCOSContext : DbContext
 
         modelBuilder.Entity<PaymentPolicy>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__PaymentP__3213E83F8C8BD1FE");
+            entity.HasKey(e => e.Id).HasName("PK__PaymentP__3213E83FC77D1B05");
 
             entity.ToTable("PaymentPolicy");
 
-            entity.HasIndex(e => e.Id, "UQ__PaymentP__3213E83EFC0192F5").IsUnique();
-
             entity.Property(e => e.Id)
-                .HasMaxLength(1)
+                .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("id");
             entity.Property(e => e.CreateDate)
                 .HasColumnType("datetime")
                 .HasColumnName("create_date");
             entity.Property(e => e.Description)
-                .IsRequired()
-                .HasMaxLength(1)
+                .HasMaxLength(255)
                 .HasColumnName("description");
             entity.Property(e => e.Name)
-                .IsRequired()
-                .HasMaxLength(1)
+                .HasMaxLength(100)
                 .HasColumnName("name");
             entity.Property(e => e.PaymentDeadlineDay).HasColumnName("payment_deadline_day");
             entity.Property(e => e.PaymentMethodAvailable)
-                .IsRequired()
-                .HasColumnType("ntext")
+                .HasColumnType("text")
                 .HasColumnName("payment_method_available");
             entity.Property(e => e.RefundPolicy)
-                .IsRequired()
-                .HasColumnType("ntext")
+                .HasColumnType("text")
                 .HasColumnName("refund_policy");
             entity.Property(e => e.UpdateDate)
                 .HasColumnType("datetime")
@@ -533,32 +482,27 @@ public partial class FA24_SE1717_PRN231_G4_KPCOSContext : DbContext
 
         modelBuilder.Entity<Project>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Project__3213E83F5F218069");
+            entity.HasKey(e => e.Id).HasName("PK__Project__3213E83F0793F84C");
 
             entity.ToTable("Project");
 
-            entity.HasIndex(e => e.Id, "UQ__Project__3213E83E74A29066").IsUnique();
-
             entity.Property(e => e.Id)
-                .HasMaxLength(1)
+                .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("id");
             entity.Property(e => e.ActualCost)
                 .HasColumnType("decimal(18, 0)")
                 .HasColumnName("actual_cost");
             entity.Property(e => e.ConstructionStaffId)
-                .IsRequired()
-                .HasMaxLength(1)
+                .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("construction_staff_id");
             entity.Property(e => e.CustomerId)
-                .IsRequired()
-                .HasMaxLength(1)
+                .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("customer_id");
             entity.Property(e => e.DesignerId)
-                .IsRequired()
-                .HasMaxLength(1)
+                .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("designer_id");
             entity.Property(e => e.EndDate)
@@ -571,102 +515,94 @@ public partial class FA24_SE1717_PRN231_G4_KPCOSContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("start_date");
             entity.Property(e => e.Status)
-                .IsRequired()
-                .HasMaxLength(1)
-                .IsUnicode(false)
+                .HasMaxLength(20)
                 .HasColumnName("status");
 
             entity.HasOne(d => d.ConstructionStaff).WithMany(p => p.ProjectConstructionStaffs)
                 .HasForeignKey(d => d.ConstructionStaffId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Project_ConstructionStaff");
+                .HasConstraintName("FK__Project__constru__5CD6CB2B");
 
             entity.HasOne(d => d.Customer).WithMany(p => p.Projects)
                 .HasForeignKey(d => d.CustomerId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Project_Customer");
+                .HasConstraintName("FK__Project__custome__5DCAEF64");
 
             entity.HasOne(d => d.Designer).WithMany(p => p.ProjectDesigners)
                 .HasForeignKey(d => d.DesignerId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Project_Designer");
+                .HasConstraintName("FK__Project__designe__5EBF139D");
         });
 
         modelBuilder.Entity<Quotation>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Quotatio__3213E83F1633F151");
+            entity.HasKey(e => e.Id).HasName("PK__Quotatio__3213E83FCB1D02D1");
 
             entity.ToTable("Quotation");
 
-            entity.HasIndex(e => e.Id, "UQ__Quotatio__3213E83E2FCF6222").IsUnique();
-
             entity.Property(e => e.Id)
-                .HasMaxLength(1)
+                .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("id");
             entity.Property(e => e.ComplexityLevel)
-                .HasMaxLength(1)
-                .IsUnicode(false);
-            entity.Property(e => e.ConsultationAmout)
+                .HasMaxLength(50)
+                .HasColumnName("complexity_level");
+            entity.Property(e => e.ConsultationAmount)
                 .HasColumnType("decimal(18, 0)")
-                .HasColumnName("Consultation_amout");
+                .HasColumnName("consultation_amount");
             entity.Property(e => e.DesignId)
-                .HasMaxLength(1)
+                .HasMaxLength(50)
                 .IsUnicode(false)
-                .HasColumnName("Design_id");
-            entity.Property(e => e.Note).HasColumnType("ntext");
-            entity.Property(e => e.QuotationAmount).HasColumnType("decimal(18, 0)");
-            entity.Property(e => e.QuotationDate).HasColumnType("datetime");
+                .HasColumnName("design_id");
+            entity.Property(e => e.Note)
+                .HasColumnType("text")
+                .HasColumnName("note");
+            entity.Property(e => e.QuotationAmount)
+                .HasColumnType("decimal(18, 0)")
+                .HasColumnName("quotation_amount");
+            entity.Property(e => e.QuotationDate)
+                .HasColumnType("datetime")
+                .HasColumnName("quotation_date");
             entity.Property(e => e.Scale)
-                .HasMaxLength(1)
-                .IsUnicode(false);
+                .HasMaxLength(50)
+                .HasColumnName("scale");
             entity.Property(e => e.Status)
-                .HasMaxLength(1)
-                .IsUnicode(false);
+                .HasMaxLength(50)
+                .HasColumnName("status");
             entity.Property(e => e.Style)
-                .HasMaxLength(1)
-                .IsUnicode(false);
+                .HasMaxLength(100)
+                .HasColumnName("style");
 
             entity.HasOne(d => d.Design).WithMany(p => p.Quotations)
                 .HasForeignKey(d => d.DesignId)
-                .HasConstraintName("FK_Quotation_Design");
+                .HasConstraintName("FK__Quotation__desig__6754599E");
         });
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__User__3213E83F527B534D");
+            entity.HasKey(e => e.Id).HasName("PK__User__3213E83F96C06612");
 
             entity.ToTable("User");
 
-            entity.HasIndex(e => e.Id, "UQ__User__3213E83E1E2538F4").IsUnique();
-
             entity.Property(e => e.Id)
-                .HasMaxLength(1)
+                .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("id");
             entity.Property(e => e.Address)
-                .HasMaxLength(1)
+                .HasMaxLength(255)
                 .HasColumnName("address");
             entity.Property(e => e.CreateDate)
                 .HasColumnType("datetime")
                 .HasColumnName("create_date");
             entity.Property(e => e.Fullname)
-                .IsRequired()
-                .HasMaxLength(1)
+                .HasMaxLength(100)
                 .HasColumnName("fullname");
             entity.Property(e => e.Password)
-                .IsRequired()
-                .HasMaxLength(1)
+                .HasMaxLength(255)
                 .IsUnicode(false)
                 .HasColumnName("password");
             entity.Property(e => e.Phone)
-                .HasMaxLength(1)
-                .IsUnicode(false)
+                .HasMaxLength(15)
                 .HasColumnName("phone");
             entity.Property(e => e.Role)
-                .IsRequired()
-                .HasMaxLength(1)
-                .IsUnicode(false)
+                .HasMaxLength(50)
                 .HasColumnName("role");
             entity.Property(e => e.Status)
                 .HasDefaultValue(true)
@@ -675,9 +611,7 @@ public partial class FA24_SE1717_PRN231_G4_KPCOSContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("update_date");
             entity.Property(e => e.Username)
-                .IsRequired()
-                .HasMaxLength(1)
-                .IsUnicode(false)
+                .HasMaxLength(100)
                 .HasColumnName("username");
         });
 

@@ -9,13 +9,13 @@ public partial class Customer
 {
     public string Id { get; set; }
 
-    public string UserId { get; set; }
-
-    public int LoyaltyPoint { get; set; }
+    public int? LoyaltyPoint { get; set; }
 
     public string MembershipStatus { get; set; }
 
     public string PackageId { get; set; }
+
+    public string UserId { get; set; }
 
     public virtual ICollection<Design> Designs { get; set; } = new List<Design>();
 

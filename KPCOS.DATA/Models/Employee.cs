@@ -9,7 +9,7 @@ public partial class Employee
 {
     public string Id { get; set; }
 
-    public decimal Salary { get; set; }
+    public decimal? Salary { get; set; }
 
     public string SupervisorId { get; set; }
 

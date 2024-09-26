@@ -12,6 +12,7 @@ namespace KPCOS.Data
     {
         private FA24_SE1717_PRN231_G4_KPCOSContext _context;
         private ProjectRepository _projectRepository;
+        private DesignRepository _designRepository;
         public UnitOfWork() {
             _context ??= new FA24_SE1717_PRN231_G4_KPCOSContext();
         }
@@ -25,10 +26,18 @@ namespace KPCOS.Data
             }
         }
 
+        public DesignRepository Design
+        {
+            get
+            {
+                return _designRepository ??= new DesignRepository(_context);
+            }
+        }
+
 
         ////TO-DO CODE HERE/////////////////
 
-    
+
 
         /*
         Read Uncommitted: The lowest level of isolation, allows transactions to read uncommitted data from other transactions. This can lead to dirty reads and other issues.

@@ -9,17 +9,17 @@ public partial class PaymentPolicy
 {
     public string Id { get; set; }
 
-    public string Name { get; set; }
+    public DateTime? CreateDate { get; set; }
 
     public string Description { get; set; }
 
-    public int PaymentDeadlineDay { get; set; }
+    public string Name { get; set; }
 
-    public string RefundPolicy { get; set; }
+    public int? PaymentDeadlineDay { get; set; }
 
     public string PaymentMethodAvailable { get; set; }
 
-    public DateTime? CreateDate { get; set; }
+    public string RefundPolicy { get; set; }
 
     public DateTime? UpdateDate { get; set; }
 }
